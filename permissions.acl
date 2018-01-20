@@ -1,0 +1,72 @@
+/**
+ * System and Network Admin access rules
+ */
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+/**
+ * Rules for Participant registry access. NetworkAdminUser can crud all participants, this is an redundance example
+ */
+rule Admin_CRUD_Relayer {
+    description: "Grant Relayers access to Grower resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.loopring.relay.mesh.**"
+    action: ALLOW
+}
+
+/**
+ * Rules for Asset registry access. Relayer can only CREATE/READ order, this version can't UPDATE order.
+ */
+rule Relayer_RC_Order {
+    description: "Grant Relayer in org.loopring.relay.mesh namespace CREATE/READ access to Order assets"
+    participant: "org.loopring.relay.mesh.Relayer"
+    operation: READ,CREATE
+    resource: "org.loopring.relay.mesh.Order"
+    action: ALLOW
+}
+
+rule Miner_R_Order {
+    description: "Grant Miner in org.loopring.relay.mesh namespace READ access to Order assets"
+    participant: "org.loopring.relay.mesh.Miner"
+    operation: READ
+    resource: "org.loopring.relay.mesh.Order"
+    action: ALLOW
+}
+
+/**
+ * Rules for Transaction invocations
+ */
+rule Relayer_C_OrderReceived {
+    description: "Grant Relayers access to invoke OrderReceived transaction"
+    participant: "org.loopring.relay.mesh.Relayer"
+    operation: CREATE
+    resource: "org.loopring.relay.mesh.OrderReceived"
+    action: ALLOW
+}
+
+/**
+ * Make sure all resources are locked down by default.
+ * If permissions need to be granted to certain resources, that should happen
+ * above this rule. Anything not explicitly specified gets locked down.
+ */
+rule Default {
+    description: "Deny all participants access to all resources"
+    participant: "ANY"
+    operation: ALL
+    resource: "org.loopring.relay.mesh.**"
+    action: DENY
+}
