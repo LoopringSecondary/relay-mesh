@@ -98,3 +98,9 @@ transaction OrderReceived {
 event OrderSubmittedEvent {
   o Order order
 }
+
+/**
+ * just for init
+ */
+transaction Setup {
+}
