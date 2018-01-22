@@ -18,29 +18,10 @@
 
 namespace org.loopring.relay.mesh
 
-/**
- * The state of loopring order
- */
-enum OrderStatus {
-  o NEW
-  o PARTIAL_DEALT
-  o FINISHED
-  o CANCELED
-  o CUT_OFF
-  o EXPIRED
-  o PENDING
-}
-
 enum NetworkType {
-  o ETHEREUM
-  o NEO
-  o QTUM
-}
-
-enum ParticipantType {
-  o RELAYER
-  o MINER
-  o MARKET_MAKER
+  o ETHEREUM_MAINNET
+  o NEO_MAINNET
+  o QTUM_MAINNET
 }
 
 concept Address {
@@ -55,9 +36,8 @@ asset Order identified by hash {
   o String tokenB
   o String amountS
   o String amountB
-  o String timestamp
-  o String ttl
-  o String salt
+  o String validSince
+  o String validUntil
   o String lrcFee
   o Boolean buyNoMoreThanAmountB
   o Integer marginSplitPercentage
@@ -65,8 +45,8 @@ asset Order identified by hash {
   o String r
   o String s
   o Address owner
-  --> Relayer relayer
-  -->  Maker maker
+  --> Relayer sender
+  --> Maker maker
 }
 
 asset Protocol identified by address {
@@ -77,15 +57,12 @@ asset Protocol identified by address {
 
 participant User identified by email {
   o String email
-  o ParticipantType type
-  o String desp
+  o String name  // this is the name registered by RelayRegistry
+  o String description
+  o String id // hex string like 0x123
 }
 
 participant Relayer extends User {
-}
-
-participant Miner extends User {
-  o Address marginSplitAddress
 }
 
 participant Maker extends User {
