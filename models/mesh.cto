@@ -46,7 +46,7 @@ asset Order identified by hash {
   o String s
   o Address owner
   --> Relayer sender
-  --> Maker maker
+  --> Wallet wallet
 }
 
 asset Protocol identified by address {
@@ -65,7 +65,7 @@ participant User identified by email {
 participant Relayer extends User {
 }
 
-participant Maker extends User {
+participant Wallet extends User {
 }
 
 transaction OrderReceived {

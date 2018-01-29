@@ -6,12 +6,10 @@ Feature: Tests related to Relayers
         """
         [
         {"$class":"org.loopring.relay.mesh.Relayer", "email":"relay1@loopring.org", "type": "RELAYER", "desp":"test relayer"},
-        {"$class":"org.loopring.relay.mesh.Miner", "email":"miner1@loopring.org", "type": "RELAYER", "desp":"test miner", "marginSplitAddress":{"$class":"org.loopring.relay.mesh.Address", "network":"NEO", "hex": "0x847983c3a34afa192cfee860698584c030f4c9db1"}},
         {"$class":"org.loopring.relay.mesh.Maker", "email":"maker1@loopring.org", "type": "MAKER", "desp":"test relayer"},
         ]
         """
         And I have issued the participant org.loopring.relay.mesh.Relayer#relay1@loopring.org with the identity relay1
-        And I have issued the participant org.loopring.relay.mesh.Miner#miner1@loopring.org with the identity miner1
         And I have added the following asset of type org.loopring.relay.mesh.Order
         """
         {

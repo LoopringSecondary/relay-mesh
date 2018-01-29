@@ -39,14 +39,6 @@ rule Relayer_RC_Order {
     action: ALLOW
 }
 
-rule Miner_R_Order {
-    description: "Grant Miner in org.loopring.relay.mesh namespace READ access to Order assets"
-    participant: "org.loopring.relay.mesh.Miner"
-    operation: READ
-    resource: "org.loopring.relay.mesh.Order"
-    action: ALLOW
-}
-
 /**
  * Rules for Transaction invocations
  */
